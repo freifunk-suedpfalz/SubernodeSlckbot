@@ -35,7 +35,7 @@ def get_nodes(nodesjson, gatewayID):
 
 if __name__ == '__main__':
     #Warngrenze für Notifications
-    critical_threshold = 50
+    critical_threshold = 80
     #URL der nodes.json
     url = 'https://www.freifunk-suedpfalz.de/karte/nodes.json'
     #Slackbot 
