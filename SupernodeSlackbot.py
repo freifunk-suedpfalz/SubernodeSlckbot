@@ -86,7 +86,7 @@ if __name__ == '__main__':
             print("Slackbot message -> send")
             message += notificationtext
             sc = SlackClient(token)
-            sc.api_call("chat.postMessage", as_user="true:", channel=chan, text=message)
+            print(sc.api_call("chat.postMessage", as_user="true:", channel=chan, text=message))
     except OSError as err:
         print("OS error: {0}".format(err))
         pass
