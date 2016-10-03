@@ -1,7 +1,6 @@
 import json
 import requests
 import sys
-from pprint import pprint
 from slackclient import SlackClient
 
 def get_supernode(nodesjson):
@@ -10,13 +9,9 @@ def get_supernode(nodesjson):
     for node in list(nodesjson['nodes']):
         try:
             if nodesjson['nodes'][node]['flags']['gateway'] == True:
-                #if nodesjson['nodes'][node]['statistics']['uptime']!="":
-                    if not nodesjson['nodes'][node]['nodeinfo']['node_id'] in supernodes:
-                        supernodes[0].append(nodesjson['nodes'][node]['nodeinfo']['node_id'])
-                        supernodes[1].append(nodesjson['nodes'][node]['nodeinfo']['hostname'])
-                        #print(nodesjson['nodes'][node]['flags']['gateway']) 
-                        #print(nodesjson['nodes'][node]['nodeinfo']['hostname'])
-                        #print(nodesjson['nodes'][node]['statistics']['uptime'])
+                if not nodesjson['nodes'][node]['nodeinfo']['node_id'] in supernodes:
+                    supernodes[0].append(nodesjson['nodes'][node]['nodeinfo']['node_id'])
+                    supernodes[1].append(nodesjson['nodes'][node]['nodeinfo']['hostname'])
         except:
             pass
     return supernodes
@@ -34,19 +29,23 @@ def get_nodes(nodesjson, gatewayID):
     return nodes
 
 if __name__ == '__main__':
-    #Warngrenze für Notifications
-    critical_threshold = 80
-    #URL der nodes.json
-    url = 'https://www.freifunk-suedpfalz.de/karte/nodes.json'
-    #Slackbot 
-    #Chanel in dem die Notification angezeigt wird
-    chan="@simon"
-    #API Key https://api.slack.com
-    token = "xoxb-xxx"
-    #Text der Notification
-    warning = "Warnung: Das Verhältniss der Nodes auf den Servern überschreitet die grenzwerte.\n"
-    
     try:
+        #Lese settings.json
+        with open('settings.json') as settings_file:    
+            settings = json.load(settings_file)
+
+        #Warngrenze für Notifications
+        critical_threshold = settings["nodesjson"]["threshold"]
+        #URL der nodes.json
+        url = settings["nodesjson"]["url"]
+        #Slackbot 
+        #Chanel in dem die Notification angezeigt wird
+        chan=settings["slack"]["channel"]
+        #API Key https://api.slack.com
+        token = settings["slack"]["token"]
+        #Text der Notification
+        message = settings["slack"]["message"]
+        
         notificationtext = ""
         threshold_reached = False
         sumNodes = 0
@@ -84,9 +83,10 @@ if __name__ == '__main__':
         print(notificationtext)
         #Notification auslösen wenn Grenzwerte überschritten sind
         if (threshold_reached == True):
-            warning += notificationtext
+            print("Slackbot message -> send")
+            message += notificationtext
             sc = SlackClient(token)
-            sc.api_call("chat.postMessage", as_user="true:", channel=chan, text=warning)
+            sc.api_call("chat.postMessage", as_user="true:", channel=chan, text=message)
     except OSError as err:
         print("OS error: {0}".format(err))
         pass
