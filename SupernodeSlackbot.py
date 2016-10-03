@@ -44,7 +44,7 @@ if __name__ == '__main__':
     #API Key https://api.slack.com
     token = "xoxb-xxx"
     #Text der Notification
-    warning = "Test Warnung: Das Verhältniss der Nodes auf den Servern überschreitet die grenzwerte.\n"
+    warning = "Warnung: Das Verhältniss der Nodes auf den Servern überschreitet die grenzwerte.\n"
     
     try:
         notificationtext = ""
