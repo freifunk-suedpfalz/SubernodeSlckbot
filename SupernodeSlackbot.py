@@ -85,8 +85,8 @@ if __name__ == '__main__':
         #Notification auslösen wenn Grenzwerte überschritten sind
         if (threshold_reached == True):
             warning += notificationtext
-            #sc = SlackClient(token)
-            #sc.api_call("chat.postMessage", as_user="true:", channel=chan, text=warning)
+            sc = SlackClient(token)
+            sc.api_call("chat.postMessage", as_user="true:", channel=chan, text=warning)
     except OSError as err:
         print("OS error: {0}".format(err))
         pass
