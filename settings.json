@@ -1,0 +1,11 @@
+{
+    "slack": {
+        "token": "xoxb-",
+        "channel": "@supernodes",
+        "message": "Warnung: Das Verhältniss der Nodes auf den Servern überschreitet die grenzwerte.\n"
+    },
+    "nodesjson": {
+        "url": "https://www.freifunk-suedpfalz.de/karte/nodes.json",
+        "threshold": 80
+    }
+}
