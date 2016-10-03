@@ -1,7 +1,7 @@
 {
     "slack": {
         "token": "xoxb-",
-        "channel": "@supernodes",
+        "channel": "supernodes",
         "message": "Warnung: Das Verhältniss der Nodes auf den Servern überschreitet die grenzwerte.\n"
     },
     "nodesjson": {
