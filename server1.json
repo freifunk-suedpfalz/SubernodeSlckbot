@@ -1,0 +1,14 @@
+{
+    "slack": {
+        "token": "xoxb-",
+        "channel": "@supernode",
+        "message": "Warnung: Das Traffic Limit wurde erreicht.\n"
+    },
+    "hetzner": {
+        "hostname":"",
+        "user": "",
+        "password":"",
+        "ipAddress":"" ,
+        "trafficLimit":"5000"
+    }
+}
